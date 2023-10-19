@@ -10,11 +10,12 @@ source:
   sha256: e76e4787735c06ae747eaf57a682b12fed297ef2d5c7727051e20d34e4e79ce3
   patches:
     # Install CMake Scripts from Tools/CMake/ to <CMakePkgRoot>/Modules/
-    # https://github.com/AMReX-Codes/amrex/pull/3599
+    #   https://github.com/AMReX-Codes/amrex/pull/3599
+    #   https://github.com/AMReX-Codes/amrex/pull/3606
     - 3599.patch
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:

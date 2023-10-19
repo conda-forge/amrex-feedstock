@@ -1,4 +1,4 @@
-From a553e39ef6b93c2e9a72de6b02b98ea21a4e56e3 Mon Sep 17 00:00:00 2001
+From 83b47ec804d2d49ed9d78c6dd80f84d3429af1ed Mon Sep 17 00:00:00 2001
 From: Axel Huebl <axel.huebl@plasma.ninja>
 Date: Wed, 18 Oct 2023 09:58:37 -0700
 Subject: [PATCH] Install Move Tools to `shared/amrex`
@@ -11,16 +11,16 @@ This moves its content in both the build directory and the
 install destination to `share/amrex/` and
 `<CMakePkgRoot>/AMReXCMakeModules/`, respectively.
 ---
- Tools/CMake/AMReXBuildInfo.cmake      | 29 +++++++++++++++++++------
- Tools/CMake/AMReXInstallHelpers.cmake | 31 ++++++++++++++++++---------
- Tools/CMake/AMReXTypecheck.cmake      |  8 +++++--
- 3 files changed, 49 insertions(+), 19 deletions(-)
+ Tools/CMake/AMReXBuildInfo.cmake      | 36 +++++++++++++++++++++------
+ Tools/CMake/AMReXInstallHelpers.cmake | 31 +++++++++++++++--------
+ Tools/CMake/AMReXTypecheck.cmake      |  8 ++++--
+ 3 files changed, 56 insertions(+), 19 deletions(-)
 
 diff --git a/Tools/CMake/AMReXBuildInfo.cmake b/Tools/CMake/AMReXBuildInfo.cmake
-index 36c7005787..77a90e4fd3 100644
+index 36c7005787..fe11c69a3e 100644
 --- a/Tools/CMake/AMReXBuildInfo.cmake
 +++ b/Tools/CMake/AMReXBuildInfo.cmake
-@@ -38,15 +38,30 @@ include(AMReXTargetHelpers)
+@@ -38,15 +38,37 @@ include(AMReXTargetHelpers)
  #
  # Set paths
  #
@@ -30,8 +30,15 @@ index 36c7005787..77a90e4fd3 100644
 -set( AMREX_BUILDINFO_IFILE ${CMAKE_CURRENT_LIST_DIR}/AMReX_buildInfo.cpp.in
 +if (AMReX_FOUND)
 +   # AMReX is pre-installed and used as a library
-+   string(REPLACE "/lib/cmake/AMReX/AMReXCMakeModules" "" AMREX_TOP_DIR_DEFAULT
-+          ${CMAKE_CURRENT_LIST_DIR})
++   if (WIN32)  # see AMReXInstallHelpers.cmake
++       string(REPLACE "/cmake/AMReXCMakeModules" ""
++              AMREX_TOP_DIR_DEFAULT
++              ${CMAKE_CURRENT_LIST_DIR})
++   else ()
++       string(REPLACE "/lib/cmake/AMReX/AMReXCMakeModules" ""
++              AMREX_TOP_DIR_DEFAULT
++              ${CMAKE_CURRENT_LIST_DIR})
++   endif ()
 +else ()
 +   # this is a superbuild
 +   string(REPLACE "/Tools/CMake" "" AMREX_TOP_DIR_DEFAULT
