@@ -49,7 +49,11 @@ cmake \
 cmake --build build --parallel ${CPU_COUNT}
 
 # test
-OMP_NUM_THREADS=2 ctest --test-dir build --output-on-failure
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" == "1" ]]; then
+    echo "Skipping runtime tests due to cross-compiled target..."
+else
+    OMP_NUM_THREADS=2 ctest --test-dir build --output-on-failure
+fi
 
 # install
 cmake --build build --target install
