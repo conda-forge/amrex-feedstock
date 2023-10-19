@@ -1,5 +1,14 @@
 {% set name = "amrex" %}
 {% set version = "23.10" %}
+{% set build = 3 %}
+
+# ensure mpi is defined (needed for conda-smithy recipe-lint)
+{% set mpi = mpi or 'nompi' %}
+
+# prioritize nompi variant via build number
+{% if mpi == 'nompi' %}
+{% set build = build + 100 %}
+{% endif %}
 
 package:
   name: {{ name|lower }}
@@ -15,13 +24,29 @@ source:
     - 3599.patch
 
 build:
-  number: 2
+  number: {{ build }}
+
+  # add build string so packages can depend on
+  # mpi or nompi variants
+  # dependencies:
+  # `pkg * mpi_mpich_*` for mpich
+  # `pkg * mpi_*` for any mpi
+  # `pkg * nompi_*` for no mpi
+  {% if mpi == 'nompi' %}
+  {% set mpi_prefix = "nompi" %}
+  {% else %}
+  {% set mpi_prefix = "mpi_" + mpi %}
+  {% endif %}
+  string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}
+
+  run_exports:
+    # strict runtime dependency on build-time MPI flavor
+    - {{ name }} * {{ mpi_prefix }}_*
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - ccache        # [unix]
     - clang         # [win]
     - cmake
     - lld           # [win]
@@ -32,6 +57,10 @@ requirements:
     - libgomp       # [linux]
     - llvm-openmp   # [osx or win]
     - pkgconfig
+  host:
+    - {{ mpi }}  # [mpi != 'nompi']
+  run:
+    - {{ mpi }}  # [mpi != 'nompi']
 
 test:
   commands:
