@@ -42,6 +42,9 @@ build:
   run_exports:
     # strict runtime dependency on build-time MPI flavor
     - {{ name }} * {{ mpi_prefix }}_*
+    # Releases are not (yet) compatible:
+    # There is no ABI compatibility check or guarantee between AMReX releases.
+    - amrex {{ version }}
 
 requirements:
   build:
