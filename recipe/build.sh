@@ -10,6 +10,31 @@ fi
 if [[ ${target_platform} =~ osx.* ]]; then
     export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
 fi
+# MPI variants
+if [[ ${mpi} == "nompi" ]]; then
+    export USE_MPI=OFF
+else
+    export USE_MPI=ON
+fi
+#   see https://github.com/conda-forge/hdf5-feedstock/blob/master/recipe/mpiexec.sh
+if [[ "$mpi" == "mpich" ]]; then
+    export HYDRA_LAUNCHER=fork
+    #export HYDRA_LAUNCHER=ssh
+fi
+if [[ "$mpi" == "openmpi" ]]; then
+    export OMPI_MCA_btl=self,tcp
+    export OMPI_MCA_plm=isolated
+    #export OMPI_MCA_plm=ssh
+    export OMPI_MCA_rmaps_base_oversubscribe=yes
+    export OMPI_MCA_btl_vader_single_copy_mechanism=none
+fi
+# CMake cannot find OpenMPI when cross-compiling for arm64 on macOS
+if [[ "$mpi" == "openmpi" &&
+      ${target_platform} =~ osx.* &&
+      "${CONDA_BUILD_CROSS_COMPILATION:-}" == "1" ]]; then
+
+    export OPAL_PREFIX=${PREFIX}
+fi
 
 # configure
 cmake \
@@ -28,7 +53,7 @@ cmake \
     -DAMReX_HDF5=OFF                  \
     -DAMReX_HYPRE=OFF                 \
     -DAMReX_IPO=OFF                   \
-    -DAMReX_MPI=OFF                   \
+    -DAMReX_MPI=${USE_MPI}            \
     -DAMReX_MPI_THREAD_MULTIPLE=OFF   \
     -DAMReX_OMP=ON                    \
     -DAMReX_PARTICLES=ON              \
