@@ -61,6 +61,7 @@ requirements:
     - {{ mpi }}  # [mpi != 'nompi']
   run:
     - {{ mpi }}  # [mpi != 'nompi']
+    - libcxx  # [osx]
 
 test:
   commands:
