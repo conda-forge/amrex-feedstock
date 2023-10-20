@@ -57,6 +57,10 @@ requirements:
     - libgomp       # [linux]
     - llvm-openmp   # [osx or win]
     - pkgconfig
+    # In OpenMPI, the compiler wrappers are binaries and the wrappers in build
+    # can use host libraries by adding OPAL_PREFIX and in mpich, compiler
+    # wrappers are bash scripts and wrappers in build can't use host libraries.
+    - openmpi  # [mpi == "openmpi" and (build_platform != target_platform)]
   host:
     - {{ mpi }}  # [mpi != 'nompi']
   run:
