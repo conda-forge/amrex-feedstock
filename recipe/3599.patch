@@ -1,4 +1,4 @@
-From 83b47ec804d2d49ed9d78c6dd80f84d3429af1ed Mon Sep 17 00:00:00 2001
+From c63441633410a44dab744f5763705275858acce4 Mon Sep 17 00:00:00 2001
 From: Axel Huebl <axel.huebl@plasma.ninja>
 Date: Wed, 18 Oct 2023 09:58:37 -0700
 Subject: [PATCH] Install Move Tools to `shared/amrex`
@@ -10,6 +10,22 @@ common conventions on Unix systems by installing a top-level
 This moves its content in both the build directory and the
 install destination to `share/amrex/` and
 `<CMakePkgRoot>/AMReXCMakeModules/`, respectively.
+
+Fix: AMReXBuildInfo & AMReXTypecheck Paths
+
+Co-authored-by: Weiqun Zhang <weiqunzhang@lbl.gov>
+
+Windows: Fix Installed AMReXBuildInfo.cmake
+
+Account for different CMake path on Unix vs. Windows.
+
+`AMReXBuildInfo.cmake`: AMReX_DIR
+
+The `AMReX_DIR` points if set to the CMake module path root.
+
+The old logic did not work for me in a situation where:
+- AMReX is pre-installed but
+- found through a superbuild of another transient lib (ABLASTR)
 ---
  Tools/CMake/AMReXBuildInfo.cmake      | 36 +++++++++++++++++++++------
  Tools/CMake/AMReXInstallHelpers.cmake | 31 +++++++++++++++--------
@@ -17,7 +33,7 @@ install destination to `share/amrex/` and
  3 files changed, 56 insertions(+), 19 deletions(-)
 
 diff --git a/Tools/CMake/AMReXBuildInfo.cmake b/Tools/CMake/AMReXBuildInfo.cmake
-index 36c7005787..fe11c69a3e 100644
+index 36c7005787..2b4258c885 100644
 --- a/Tools/CMake/AMReXBuildInfo.cmake
 +++ b/Tools/CMake/AMReXBuildInfo.cmake
 @@ -38,15 +38,37 @@ include(AMReXTargetHelpers)
@@ -28,7 +44,7 @@ index 36c7005787..fe11c69a3e 100644
 -set( AMREX_TOP_DIR ${AMREX_TOP_DIR} CACHE INTERNAL "Top level AMReX directory")
 -
 -set( AMREX_BUILDINFO_IFILE ${CMAKE_CURRENT_LIST_DIR}/AMReX_buildInfo.cpp.in
-+if (AMReX_FOUND)
++if (AMReX_DIR)
 +   # AMReX is pre-installed and used as a library
 +   if (WIN32)  # see AMReXInstallHelpers.cmake
 +       string(REPLACE "/cmake/AMReXCMakeModules" ""
@@ -46,7 +62,7 @@ index 36c7005787..fe11c69a3e 100644
 +endif ()
 +set(AMREX_TOP_DIR "${AMREX_TOP_DIR_DEFAULT}" CACHE INTERNAL "Top level AMReX directory")
 +
-+if (AMReX_FOUND)
++if (AMReX_DIR)
 +   # AMReX is pre-installed and used as a library
 +   set(AMREX_C_SCRIPTS_DIR "${AMREX_TOP_DIR}/share/amrex/C_scripts"
 +       CACHE INTERNAL "Path to AMReX' C_scripts dir")
@@ -150,3 +166,6 @@ index 0b68fb8c27..c569eb5d9b 100644
  
     add_custom_target( typecheck_${_target}
        COMMAND python3  ${_typechecker}
+-- 
+2.34.1
+
