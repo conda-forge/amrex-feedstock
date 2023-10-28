@@ -1,0 +1,37 @@
+From 43c6978aea06d05170cb1f0d245be2f5180e287b Mon Sep 17 00:00:00 2001
+From: Axel Huebl <axel.huebl@plasma.ninja>
+Date: Sun, 8 Oct 2023 11:55:37 -0700
+Subject: [PATCH] RealVect Static: Export
+
+Export global symbols for Windows.
+
+Seen in WarpX on conda-forge:
+```
+lld-link: warning: ignoring unknown argument '-lpthreads'
+lld-link: error: undefined symbol: public: static class amrex::RealVect const amrex::RealVect::Zero
+>>> referenced by libwarpx.rz.NOMPI.OMP.DP.PDP.OPMD.PSATD.QED.lib(SpectralKSpaceRZ.cpp.obj):(public: __cdecl SpectralKSpaceRZ::SpectralKSpaceRZ(class amrex::BoxArray const &, class amrex::DistributionMapping const &, class amrex::RealVect))
+```
+---
+ Src/Base/AMReX_RealVect.H | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Src/Base/AMReX_RealVect.H b/Src/Base/AMReX_RealVect.H
+index 83cc747b030..635d21927f6 100644
+--- a/Src/Base/AMReX_RealVect.H
++++ b/Src/Base/AMReX_RealVect.H
+@@ -521,13 +521,13 @@ public:
+   /**
+      This is a RealVect all of whose components are equal to zero.
+   */
+-  static const RealVect Zero;
++  static AMREX_EXPORT const RealVect Zero;
+ 
+   ///
+   /**
+      This is a RealVect all of whose components are equal to one.
+   */
+-  static const RealVect Unit;
++  static AMREX_EXPORT const RealVect Unit;
+ 
+   /*@}*/
+ 
