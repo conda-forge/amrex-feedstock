@@ -1,6 +1,6 @@
 {% set name = "amrex" %}
 {% set version = "23.10" %}
-{% set build = 4 %}
+{% set build = 5 %}
 
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
 {% set mpi = mpi or 'nompi' %}
@@ -18,6 +18,9 @@ source:
   url: https://github.com/AMReX-Codes/amrex/archive/refs/tags/{{ version }}.tar.gz
   sha256: e76e4787735c06ae747eaf57a682b12fed297ef2d5c7727051e20d34e4e79ce3
   patches:
+    # RealVect Static: Export
+    #   https://github.com/AMReX-Codes/amrex/pull/3589
+    - 3589.patch
     # Install CMake Scripts from Tools/CMake/ to <CMakePkgRoot>/Modules/
     #   https://github.com/AMReX-Codes/amrex/pull/3599
     #   https://github.com/AMReX-Codes/amrex/pull/3606
