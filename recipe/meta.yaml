@@ -1,6 +1,6 @@
 {% set name = "amrex" %}
 {% set version = "23.10" %}
-{% set build = 5 %}
+{% set build = 6 %}
 
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
 {% set mpi = mpi or 'nompi' %}
@@ -60,7 +60,8 @@ requirements:
     - make          # [unix]
     - ninja         # [win]
     - libgomp       # [linux]
-    - llvm-openmp   # [osx or win]
+    - llvm-openmp   # [osx]
+    - intel-openmp  # [win]
     - pkgconfig
     # In OpenMPI, the compiler wrappers are binaries and the wrappers in build
     # can use host libraries by adding OPAL_PREFIX and in mpich, compiler
