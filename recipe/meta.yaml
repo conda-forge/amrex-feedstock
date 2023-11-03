@@ -17,15 +17,6 @@ package:
 source:
   url: https://github.com/AMReX-Codes/amrex/archive/refs/tags/{{ version }}.tar.gz
   sha256: 3ef6952b250c3fcb6bdfe5ed61a434437e26def1eb23d0f4738002e68535ef90
-  patches:
-    # RealVect Static: Export
-    #   https://github.com/AMReX-Codes/amrex/pull/3589
-    - 3589.patch
-    # Install CMake Scripts from Tools/CMake/ to <CMakePkgRoot>/Modules/
-    #   https://github.com/AMReX-Codes/amrex/pull/3599
-    #   https://github.com/AMReX-Codes/amrex/pull/3606
-    #   https://github.com/AMReX-Codes/amrex/pull/3609
-    - 3599.patch
 
 build:
   number: {{ build }}
@@ -60,8 +51,7 @@ requirements:
     - make          # [unix]
     - ninja         # [win]
     - libgomp       # [linux]
-    - llvm-openmp   # [osx]
-    - intel-openmp  # [win]
+    - llvm-openmp   # [osx or win]
     - pkgconfig
     # In OpenMPI, the compiler wrappers are binaries and the wrappers in build
     # can use host libraries by adding OPAL_PREFIX and in mpich, compiler
