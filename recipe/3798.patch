@@ -1,0 +1,73 @@
+From cdf91b2294b839d0630ec1d5370d1cfd34cb68e9 Mon Sep 17 00:00:00 2001
+From: Weiqun Zhang <weiqunzhang@lbl.gov>
+Date: Mon, 11 Mar 2024 09:17:34 -0700
+Subject: [PATCH] omp_locks: Avoid extern global variable
+
+Make `omp_locks` a variable in an unnamed namespace instead of an extern
+global variable.
+
+This might potentially fix the Windows symbol issue (#3795).
+---
+ Src/Base/AMReX_BaseFab.H  |  4 +---
+ Src/Base/AMReX_OpenMP.H   |  3 +--
+ Src/Base/AMReX_OpenMP.cpp | 11 +++++++++--
+ 3 files changed, 11 insertions(+), 7 deletions(-)
+
+diff --git a/Src/Base/AMReX_BaseFab.H b/Src/Base/AMReX_BaseFab.H
+index b1224f1400..63bc332f40 100644
+--- a/Src/Base/AMReX_BaseFab.H
++++ b/Src/Base/AMReX_BaseFab.H
+@@ -3360,9 +3360,7 @@ BaseFab<T>::lockAdd (const BaseFab<T>& src, const Box& srcbox, const Box& destbo
+         while (planes_left > 0) {
+             AMREX_ASSERT(mm < nplanes);
+             auto const m = mm + plo;
+-            int ilock = m % OpenMP::nlocks;
+-            if (ilock < 0) { ilock += OpenMP::nlocks; }
+-            auto* lock = &(OpenMP::omp_locks[ilock]);
++            auto* lock = OpenMP::get_lock(m);
+             if (omp_test_lock(lock))
+             {
+                 auto lo = dlo;
+diff --git a/Src/Base/AMReX_OpenMP.H b/Src/Base/AMReX_OpenMP.H
+index e31a917145..15d6854c92 100644
+--- a/Src/Base/AMReX_OpenMP.H
++++ b/Src/Base/AMReX_OpenMP.H
+@@ -17,8 +17,7 @@ namespace amrex::OpenMP {
+     void Initialize ();
+     void Finalize ();
+ 
+-    static constexpr int nlocks = 128;
+-    extern AMREX_EXPORT omp_lock_t omp_locks[nlocks];
++    omp_lock_t* get_lock (int ilock);
+ }
+ 
+ #else // AMREX_USE_OMP
+diff --git a/Src/Base/AMReX_OpenMP.cpp b/Src/Base/AMReX_OpenMP.cpp
+index 8d7cb13824..03c54b5358 100644
+--- a/Src/Base/AMReX_OpenMP.cpp
++++ b/Src/Base/AMReX_OpenMP.cpp
+@@ -135,9 +135,9 @@ namespace amrex
+ #ifdef AMREX_USE_OMP
+ namespace amrex::OpenMP
+ {
+-    omp_lock_t omp_locks[nlocks];
+-
+     namespace {
++        constexpr int nlocks = 128;
++        omp_lock_t omp_locks[nlocks];
+         unsigned int initialized = 0;
+     }
+ 
+@@ -204,5 +204,12 @@ namespace amrex::OpenMP
+         }
+     }
+ 
++    omp_lock_t* get_lock (int ilock)
++    {
++        ilock = ilock % nlocks;
++        if (ilock < 0) { ilock += nlocks; }
++        return omp_locks + ilock;
++    }
++
+ } // namespace amrex::OpenMP
+ #endif // AMREX_USE_OMP

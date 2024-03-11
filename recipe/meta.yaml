@@ -1,6 +1,6 @@
 {% set name = "amrex" %}
 {% set version = "24.03" %}
-{% set build = 1 %}
+{% set build = 2 %}
 
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
 {% set mpi = mpi or 'nompi' %}
@@ -20,7 +20,9 @@ source:
   patches:
     # Linker Error for Windows OpenMP build
     # https://github.com/AMReX-Codes/amrex/pull/3796
+    # https://github.com/AMReX-Codes/amrex/pull/3798
     - 3796.patch
+    - 3798.patch
 
 build:
   number: {{ build }}
