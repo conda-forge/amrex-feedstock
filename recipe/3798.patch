@@ -38,7 +38,7 @@ index e31a917145..15d6854c92 100644
  
 -    static constexpr int nlocks = 128;
 -    extern AMREX_EXPORT omp_lock_t omp_locks[nlocks];
-+    omp_lock_t* get_lock (int ilock);
++    AMREX_EXPORT omp_lock_t* get_lock (int ilock);
  }
  
  #else // AMREX_USE_OMP
