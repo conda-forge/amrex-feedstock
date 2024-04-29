@@ -25,7 +25,6 @@ cmake ^
     -DAMReX_PIC=ON                  ^
     -DAMReX_SPACEDIM="1;2;3"        ^
     -DAMReX_SENSEI=OFF              ^
-    -DAMReX_TEST_TYPE=Small         ^
     -DAMReX_TINY_PROFILE=ON         ^
     -DBUILD_SHARED_LIBS=ON          ^
     -DCMAKE_BUILD_TYPE=Release      ^
@@ -52,5 +51,11 @@ del "%LIBRARY_PREFIX%\bin\amrex.dll"
 
 :: test
 set "OMP_NUM_THREADS=2"
-ctest --test-dir build --build-config Release --output-on-failure
+ctest --test-dir build --build-config Release --output-on-failure -R AmrCore
+if errorlevel 1 exit 1
+ctest --test-dir build --build-config Release --output-on-failure -R Redistribute
+if errorlevel 1 exit 1
+ctest --test-dir build --build-config Release --output-on-failure -R ABecLaplacian_C
+if errorlevel 1 exit 1
+ctest --test-dir build --build-config Release --output-on-failure -R OpenMP
 if errorlevel 1 exit 1
