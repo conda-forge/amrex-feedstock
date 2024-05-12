@@ -16,7 +16,7 @@ package:
 
 source:
   url: https://github.com/AMReX-Codes/amrex/archive/refs/tags/{{ version }}.tar.gz
-  sha256: 7ae0e559b55ab432ed1ad9e713845b8b3be3f0eb08afd21fdae94c21c3516059
+  sha256: 97b3d192480a3a1b3a0facd903ada05d5c4cfb915f3e7365ec104fbca54cfb68
   patches:
     # OpenMP public symbols on Windows
     # https://github.com/AMReX-Codes/amrex/pull/3910
