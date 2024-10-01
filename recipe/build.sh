@@ -44,7 +44,7 @@ cmake \
     -DAMReX_BUILD_TUTORIALS=OFF       \
     -DAMReX_CONDUIT=OFF               \
     -DAMReX_CUDA_LTO=OFF              \
-    -DAMReX_EB=OFF                    \
+    -DAMReX_EB=ON                     \
     -DAMReX_ENABLE_TESTS=ON           \
     -DAMReX_FORTRAN=OFF               \
     -DAMReX_FORTRAN_INTERFACES=OFF    \
