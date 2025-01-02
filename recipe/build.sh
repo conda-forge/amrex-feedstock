@@ -46,6 +46,7 @@ cmake \
     -DAMReX_CUDA_LTO=OFF              \
     -DAMReX_EB=ON                     \
     -DAMReX_ENABLE_TESTS=ON           \
+    -DAMReX_FFT=ON                    \
     -DAMReX_FORTRAN=OFF               \
     -DAMReX_FORTRAN_INTERFACES=OFF    \
     -DAMReX_GPU_BACKEND=NONE          \

@@ -18,6 +18,8 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '18'
+fftw:
+- '3'
 llvm_openmp:
 - '18'
 macos_machine:
