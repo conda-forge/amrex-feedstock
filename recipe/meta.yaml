@@ -60,6 +60,7 @@ requirements:
     - openmpi  # [mpi == "openmpi" and (build_platform != target_platform)]
   host:
     - {{ mpi }}  # [mpi != 'nompi']
+    - fftw
   run:
     - {{ mpi }}  # [mpi != 'nompi']
     - libcxx  # [osx]
