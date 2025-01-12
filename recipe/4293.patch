@@ -1,7 +1,7 @@
 From c6ee9704d892c18a21877920c43f07b542a03894 Mon Sep 17 00:00:00 2001
 From: Axel Huebl <axel.huebl@plasma.ninja>
 Date: Sat, 11 Jan 2025 17:23:29 -0800
-Subject: [PATCH] Fix `AMReX::FFTW` Once
+Subject: [PATCH 2/2] Fix `AMReX::FFTW` Once
 
 In situations like superbuilds or other downstream usage,
 the `AMReX::FFTW` should only be created once.
@@ -41,3 +41,6 @@ index 64ce7183f3..1306ae77b8 100644
  
  # Vars for CMake config
  include(FindPackageHandleStandardArgs)
+-- 
+2.43.0
+

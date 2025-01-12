@@ -20,6 +20,7 @@ source:
   patches:
     # Fix AMReX::FFTW Once
     # https://github.com/AMReX-Codes/amrex/pull/4293
+    - 4282.patch
     - 4293.patch
 
 build:
