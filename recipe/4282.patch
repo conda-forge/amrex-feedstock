@@ -1,0 +1,221 @@
+From 56516ee47f7806caf2574aa16d4c6ed5770842cc Mon Sep 17 00:00:00 2001
+From: Axel Huebl <axel.huebl@plasma.ninja>
+Date: Wed, 8 Jan 2025 11:10:33 -0800
+Subject: [PATCH 1/2] FFTW: Windows, OMP & Floats (#4282)
+
+## Summary
+
+This improves the FFTW CMake find logic based on the scripts that I
+developed for HiPACE++/WarpX/ImpactX to find FFTW on various platforms.
+
+It helps to find FFTW on Windows, where it is installed by default with
+CMake, and it uses more details from PkgConfig files on Linux/macOS,
+such as forwarding defines, using OpenMP acceleration if available.
+
+It also chooses sensible defaults to work around known FFTW build system
+bugs, linked inline. There are also options added to control the
+defaults, e.g., in package managers that use a different default (e.g.,
+CMake FFTW install on Linux/macOS).
+
+## Additional background
+
+See build issues in
+https://github.com/ECP-WarpX/impactx/pull/760#issuecomment-2569630544
+
+On Windows, try searching for `FFTW3(f)Config.cmake` files first,
+because:
+- Installed `.pc` files wrongly and unconditionally add `-lm`
+- https://github.com/FFTW/fftw3/issues/236
+
+On Linux & macOS, the Autotools install tries to emulate a CMake config
+file, but has a bug:
+- https://github.com/FFTW/fftw3/issues/235
+- Thus, by default rely on `.pc` files because we cannot know which
+install was choosen (otherwise, there is an option for it named
+`AMReX_FFTW_SEARCH`).
+
+## Checklist
+
+The proposed changes:
+- [ ] fix a bug or incorrect behavior in AMReX
+- [x] add new capabilities to AMReX
+- [ ] changes answers in the test suite to more than roundoff level
+- [ ] are likely to significantly affect the results of downstream AMReX
+users
+- [ ] include documentation in the code and/or rst files, if appropriate
+---
+ Tools/CMake/FindAMReXFFTW.cmake | 141 +++++++++++++++++++++++++++-----
+ 1 file changed, 119 insertions(+), 22 deletions(-)
+
+diff --git a/Tools/CMake/FindAMReXFFTW.cmake b/Tools/CMake/FindAMReXFFTW.cmake
+index 678743a08b..64ce7183f3 100644
+--- a/Tools/CMake/FindAMReXFFTW.cmake
++++ b/Tools/CMake/FindAMReXFFTW.cmake
+@@ -7,45 +7,142 @@ Finds the FFTW library.
+ Imported Targets
+ ^^^^^^^^^^^^^^^^
+ 
+-This module provides the following imported target, if found:
++This module provides the following imported target:
+ 
+-``FFTW``
++``AMReX::FFTW``
+   The FFTW library
+ 
++Options/Control Variables
++^^^^^^^^^^^^^^^^^^^^^^^^^
++
++``AMReX_FFTW_SEARCH``
++  FFTW search method (PKGCONFIG/CMAKE).
++  Defaults to CMake config packages on Windows and to PkgConfig pc files on Linux/macOS.
++
++``AMReX_FFTW_IGNORE_OMP``
++  Ignore FFTW3 OpenMP support, even if found.
++
+ Result Variables
+ ^^^^^^^^^^^^^^^^
+ 
+ This will define the following variables:
+ 
+ ``AMReXFFTW_FOUND``
+-  True if the hypre library has been found.
+-``FFTW_INCLUDES``
+-  Include directories needed to use FFTW.
+-``FFTW_LIBRARIES``
+-  Libraries needed to link to FFTW.
++  True if the FFTW library has been found.
+ 
+ This will also create an imported target, AMReX::FFTW.
++
+ #]=======================================================================]
+ 
+-if (NOT FFTW_INCLUDES)
+-    find_path(FFTW_INCLUDES NAMES "fftw3.h" HINTS ${FFTW_ROOT}/include)
+-endif()
++# Helper Functions ############################################################
++#
++option(AMReX_FFTW_IGNORE_OMP "Ignore FFTW3's OpenMP support, even if found" OFF)
++mark_as_advanced(AMReX_FFTW_IGNORE_OMP)
+ 
+-if (NOT FFTW_LIBRARIES)
+-    find_library(FFTW_LIBRARY NAMES "fftw3" HINTS ${FFTW_ROOT}/lib)
+-    find_library(FFTWF_LIBRARY NAMES "fftw3f" HINTS ${FFTW_ROOT}/lib)
+-    set(FFTW_LIBRARIES ${FFTW_LIBRARY} ${FFTWF_LIBRARY})
+-endif()
++# Set the AMReX_FFTW_OMP=1 define on AMReX::FFTW if TRUE and print
++# a message
++#
++function(fftw_add_define HAS_FFTW_OMP_LIB)
++    if(HAS_FFTW_OMP_LIB)
++        message(STATUS "FFTW: Found OpenMP support")
++        target_compile_definitions(AMReX::FFTW INTERFACE AMReX_FFTW_OMP=1)
++    else()
++        message(STATUS "FFTW: Could NOT find OpenMP support")
++    endif()
++endfunction()
+ 
+-include(FindPackageHandleStandardArgs)
++# Check if the found FFTW install location has an _omp library, e.g.,
++# libfftw3(f)_omp.(a|so) shipped and if yes, set the AMReX_FFTW_OMP=1 define.
++#
++function(fftw_check_omp library_paths fftw_precision_suffix)
++    find_library(HAS_FFTW_OMP_LIB${fftw_precision_suffix} fftw3${fftw_precision_suffix}_omp
++        PATHS ${library_paths}
++        # this is intentional, so we don't mix different FFTW installs
++        # and only check what is in the location hinted by the
++        # "library_paths" variable
++        NO_DEFAULT_PATH
++        NO_PACKAGE_ROOT_PATH
++        NO_CMAKE_PATH
++        NO_CMAKE_ENVIRONMENT_PATH
++        NO_SYSTEM_ENVIRONMENT_PATH
++        NO_CMAKE_SYSTEM_PATH
++        NO_CMAKE_FIND_ROOT_PATH
++    )
++    if(HAS_FFTW_OMP_LIB${fftw_precision_suffix})
++        # the .pc files here forget to link the _omp.a/so files
++        # explicitly - we add those manually to avoid any trouble,
++        # e.g., in static builds.
++        target_link_libraries(AMReX::FFTW INTERFACE ${HAS_FFTW_OMP_LIB${fftw_precision_suffix}})
++    endif()
+ 
+-find_package_handle_standard_args(AMReXFFTW
+-    REQUIRED_VARS FFTW_LIBRARIES FFTW_INCLUDES)
++    fftw_add_define("${HAS_FFTW_OMP_LIB${fftw_precision_suffix}}")
++endfunction()
++
++
++# Central FFTW3 Search ###############################################
++#
++# On Windows, try searching for FFTW3(f)Config.cmake files first
++#   Installed .pc files wrongly and unconditionally add -lm
++#   https://github.com/FFTW/fftw3/issues/236
+ 
+-mark_as_advanced(FFTW_LIBRARIES FFTW_INCLUDES)
++# On Linux & macOS, note Autotools install bug:
++#   https://github.com/FFTW/fftw3/issues/235
++# Thus, rely on .pc files
++
++set(AMReX_FFTW_SEARCH_VALUES PKGCONFIG CMAKE)
++set(AMReX_FFTW_SEARCH_DEFAULT PKGCONFIG)
++if(WIN32)
++    set(AMReX_FFTW_SEARCH_DEFAULT CMAKE)
++endif()
++set(AMReX_FFTW_SEARCH ${AMReX_FFTW_SEARCH_DEFAULT}
++        CACHE STRING "FFTW search method (PKGCONFIG/CMAKE)")
++set_property(CACHE AMReX_FFTW_SEARCH PROPERTY STRINGS ${AMReX_FFTW_SEARCH_VALUES})
++if(NOT AMReX_FFTW_SEARCH IN_LIST AMReX_FFTW_SEARCH_VALUES)
++    message(FATAL_ERROR "AMReX_FFTW_SEARCH (${AMReX_FFTW_SEARCH}) must be one of ${AMReX_FFTW_SEARCH_VALUES}")
++endif()
++mark_as_advanced(AMReX_FFTW_SEARCH)
+ 
+ # Create imported target
+ add_library(AMReX::FFTW INTERFACE IMPORTED GLOBAL)
+-target_link_libraries(AMReX::FFTW INTERFACE ${FFTW_LIBRARIES})
+-set_target_properties(AMReX::FFTW PROPERTIES
+-	INTERFACE_INCLUDE_DIRECTORIES "${FFTW_INCLUDES}")
++
++function(fftw_find_precision HFFTWp)
++    if(AMReX_FFTW_SEARCH STREQUAL CMAKE)
++        find_package(FFTW3${HFFTWp} CONFIG REQUIRED)
++        set(AMReX_FFTW_LIBRARY_DIRS "${FFTW3${HFFTWp}_LIBRARY_DIRS}")
++        message(STATUS "Found FFTW: ${FFTW3${HFFTWp}_DIR} (found version \"${FFTW3${HFFTWp}_VERSION}\")")
++    else()
++        find_package(PkgConfig REQUIRED QUIET)
++        pkg_check_modules(fftw3${HFFTWp} REQUIRED IMPORTED_TARGET fftw3${HFFTWp})
++        message(STATUS "Found FFTW: ${fftw3${HFFTWp}_PREFIX}")
++        if(fftw3${HFFTWp}_LIBRARY_DIRS)
++            set(AMReX_FFTW_LIBRARY_DIRS "${fftw3${HFFTWp}_LIBRARY_DIRS}")
++        else()
++            set(AMReX_FFTW_LIBRARY_DIRS "${fftw3${HFFTWp}_LIBDIR}")
++        endif()
++    endif()
++
++    if(AMReX_FFTW_SEARCH STREQUAL CMAKE)
++        target_link_libraries(AMReX::FFTW INTERFACE FFTW3::fftw3${HFFTWp})
++    else()
++        target_link_libraries(AMReX::FFTW INTERFACE PkgConfig::fftw3${HFFTWp})
++    endif()
++
++    if(AMReX_OMP)
++        if(AMReX_FFTW_IGNORE_OMP)
++            message(STATUS "FFTW: Requested to IGNORE OpenMP support")
++        else()
++            fftw_check_omp("${AMReX_FFTW_LIBRARY_DIRS}" "${HFFTWp}")
++        endif()
++    else()
++        message(STATUS "FFTW: Did NOT search for OpenMP support (AMReX_OMP is not set)")
++    endif()
++endfunction()
++
++# floating point precision suffixes: we request float and double precision
++fftw_find_precision("")
++fftw_find_precision("f")
++
++# Vars for CMake config
++include(FindPackageHandleStandardArgs)
++find_package_handle_standard_args(AMReXFFTW
++    HANDLE_COMPONENTS)
+-- 
+2.43.0
+
