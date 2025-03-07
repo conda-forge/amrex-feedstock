@@ -1,0 +1,100 @@
+# ensure mpi is defined (needed for conda-smithy recipe-lint)
+# prioritize nompi variant via build number
+schema_version: 1
+
+context:
+  name: amrex
+  version: 25.03
+  build: 0
+  mpi: ${{ mpi or "nompi" }}  # is this still needed?
+  mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" + mpi }}
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://github.com/AMReX-Codes/amrex/archive/refs/tags/${{ version }}.tar.gz
+  sha256: bfa0e497f1d7e0f5e40e2518e2b88bb0a6006b855c10ff36356bb00348e82b95
+
+build:
+  # add build string so packages can depend on
+  # mpi or nompi variants
+  # dependencies:
+  # `pkg * mpi_mpich_*` for mpich
+  # `pkg * mpi_*` for any mpi
+  number: ${{ build | int + 100 if mpi == "nompi" else build }}
+  string: ${{ mpi_prefix }}_h${{ hash }}_${{ build | int + 100 if mpi == "nompi" else build }}
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ stdlib("c") }}
+    - ${{ compiler('cxx') }}
+    - if: unix
+      then: make
+    - if: win
+      then:
+        - clang
+        - lld
+        - llvm-openmp
+        - ninja
+    - if: osx
+      then: llvm-openmp
+    - cmake
+    - curl
+    - pkg-config
+    # In OpenMPI, the compiler wrappers are binaries and the wrappers in build
+    # can use host libraries by adding OPAL_PREFIX and in mpich, compiler
+    # wrappers are bash scripts and wrappers in build can't use host libraries.
+    - if: "mpi == 'openmpi' and (build_platform != target_platform)"
+      then: openmpi
+
+  host:
+    - if: "mpi != 'nompi'"
+      then: ${{ mpi }}
+    - fftw
+  run:
+    - if: "mpi != 'nompi'"
+      then:
+        - ${{ mpi }}
+    - if: osx
+      then: libcxx
+  run_exports:
+    # strict runtime dependency on build-time MPI flavor
+    - ${{ name }} * ${{ mpi_prefix }}_*
+    # Releases are not (yet) compatible:
+    # There is no ABI compatibility check or guarantee between AMReX releases.
+    - amrex ==${{ version }}
+
+tests:
+  - package_contents:
+      lib:
+        - if: unix
+          then: amrex
+        - amrex_1d
+        - amrex_2d
+        - amrex_3d
+      include:
+        - AMReX.H
+      files:
+        - ${{ "Library" if win else "lib" }}/cmake/${{ "AMReX/" if unix }}AMReXConfig.cmake
+
+about:
+  license: BSD-3-Clause-LBNL
+  license_file: LICENSE
+  summary: A software framework for massively parallel, block-structured adaptive mesh refinement (AMR) applications
+  description: |
+    AMReX is a software framework containing all the functionality to write
+    massively parallel, block-structured adaptive mesh refinement (AMR)
+    applications. AMReX is developed at LBNL, NREL, and ANL as part of the
+    Block-Structured AMR Co-Design Center in DOE's Exascale Computing Project.
+  homepage: https://amrex-codes.github.io/amrex/
+  repository: https://github.com/AMReX-Codes/amrex
+  documentation: https://amrex-codes.github.io/amrex/docs_html/
+
+extra:
+  recipe-maintainers:
+    - atmyers
+    - ax3l
+    - WeiqunZhang

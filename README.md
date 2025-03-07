@@ -18,7 +18,6 @@ massively parallel, block-structured adaptive mesh refinement (AMR)
 applications. AMReX is developed at LBNL, NREL, and ANL as part of the
 Block-Structured AMR Co-Design Center in DOE's Exascale Computing Project.
 
-
 Current build status
 ====================
 
