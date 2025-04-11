@@ -4,8 +4,8 @@ schema_version: 1
 
 context:
   name: amrex
-  version: 25.03
-  build: 1
+  version: 25.04
+  build: 0
   mpi: ${{ mpi or "nompi" }}  # is this still needed?
   mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" + mpi }}
 
@@ -15,7 +15,7 @@ package:
 
 source:
   url: https://github.com/AMReX-Codes/amrex/archive/refs/tags/${{ version }}.tar.gz
-  sha256: bfa0e497f1d7e0f5e40e2518e2b88bb0a6006b855c10ff36356bb00348e82b95
+  sha256: 70f1cbbee2fb1f699f6bc906902f19e6f4cdbf21eb2df92d1dcb75926defb192
 
 build:
   # add build string so packages can depend on
