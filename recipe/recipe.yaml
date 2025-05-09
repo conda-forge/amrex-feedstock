@@ -82,7 +82,7 @@ tests:
         - ${{ "Library" if win else "lib" }}/cmake/${{ "AMReX/" if unix }}AMReXConfig.cmake
 
 about:
-  license: BSD-3-Clause-LBNL
+  license: BSD-3-Clause
   license_file: LICENSE
   summary: A software framework for massively parallel, block-structured adaptive mesh refinement (AMR) applications
   description: |
