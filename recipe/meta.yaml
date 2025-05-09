@@ -54,8 +54,7 @@ about:
   description: |
     AMReX is a software framework containing all the functionality to write
     massively parallel, block-structured adaptive mesh refinement (AMR)
-    applications. AMReX is developed at LBNL, NREL, and ANL as part of the
-    Block-Structured AMR Co-Design Center in DOE's Exascale Computing Project.
+    applications. AMReX is an Established Project of the High Performance Software Foundation.
   home: https://amrex-codes.github.io/amrex/
   dev_url: https://github.com/AMReX-Codes/amrex
   doc_url: https://amrex-codes.github.io/amrex/docs_html/
