@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/amrex-feedstock
 
 Home: https://amrex-codes.github.io/amrex/
 
-Package license: BSD-3-Clause-LBNL
+Package license: BSD-3-Clause
 
 Summary: A software framework for massively parallel, block-structured adaptive mesh refinement (AMR) applications
 
@@ -15,8 +15,7 @@ Documentation: https://amrex-codes.github.io/amrex/docs_html/
 
 AMReX is a software framework containing all the functionality to write
 massively parallel, block-structured adaptive mesh refinement (AMR)
-applications. AMReX is developed at LBNL, NREL, and ANL as part of the
-Block-Structured AMR Co-Design Center in DOE's Exascale Computing Project.
+applications. AMReX is an Established Project of the High Performance Software Foundation.
 
 Current build status
 ====================

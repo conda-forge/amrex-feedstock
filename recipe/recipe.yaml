@@ -4,7 +4,7 @@ context:
   # ensure mpi is defined (needed for conda-smithy recipe-lint)
   # prioritize nompi variant via build number
   name: amrex
-  version: "25.05"
+  version: "25.06"
   build: 0
   mpi: ${{ mpi or "nompi" }}  # is this still needed?
   mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" + mpi }}
@@ -15,7 +15,7 @@ package:
 
 source:
   url: https://github.com/AMReX-Codes/amrex/archive/refs/tags/${{ version }}.tar.gz
-  sha256: 8e969efe9af104c1ba47aa5e0885cafe8efc5e4265e4e53fb07521a95900e506
+  sha256: 2b429b28a7442e937c7d6e5ea53e980d8c4b21dec16b6d4d45f92111db7f6e0e
 
 build:
   # add build string so packages can depend on
