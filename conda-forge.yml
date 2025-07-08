@@ -18,3 +18,7 @@ test: native_and_emulated
 bot:
   automerge: false
   check_solvable: true
+  version_updates:
+    exclude:
+      # this was a one-off tag, AMReX releases use YY.MM schema
+      - "2024"
