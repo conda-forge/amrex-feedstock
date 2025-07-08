@@ -21,4 +21,4 @@ bot:
   version_updates:
     exclude:
       # this was a one-off tag, AMReX releases use YY.MM schema
-      - "2024"
+      - "v2024"
