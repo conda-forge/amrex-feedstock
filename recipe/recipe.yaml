@@ -64,7 +64,7 @@ requirements:
       then: libcxx
   run_exports:
     # strict runtime dependency on build-time MPI flavor and DP/SP variant
-    - ${{ name }} * ${{ mpi_prefix }}_* ${{ amrex_precision }}_*
+    - ${{ name }} * ${{ mpi_prefix }}_${{ amrex_precision }}_*
     # Releases are not (yet) compatible:
     # There is no ABI compatibility check or guarantee between AMReX releases.
     - amrex ==${{ version }}
