@@ -8,8 +8,11 @@ jobs:
     vmImage: windows-2022
   strategy:
     matrix:
-      win_64_:
-        CONFIG: win_64_
+      win_64_amrex_precisiondp:
+        CONFIG: win_64_amrex_precisiondp
+        UPLOAD_PACKAGES: 'True'
+      win_64_amrex_precisionsp:
+        CONFIG: win_64_amrex_precisionsp
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
   variables:

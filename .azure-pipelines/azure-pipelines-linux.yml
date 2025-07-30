@@ -8,40 +8,76 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_mpimpich:
-        CONFIG: linux_64_mpimpich
+      linux_64_amrex_precisiondpmpimpich:
+        CONFIG: linux_64_amrex_precisiondpmpimpich
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_64_mpinompi:
-        CONFIG: linux_64_mpinompi
+      linux_64_amrex_precisiondpmpinompi:
+        CONFIG: linux_64_amrex_precisiondpmpinompi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_64_mpiopenmpi:
-        CONFIG: linux_64_mpiopenmpi
+      linux_64_amrex_precisiondpmpiopenmpi:
+        CONFIG: linux_64_amrex_precisiondpmpiopenmpi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_aarch64_mpimpich:
-        CONFIG: linux_aarch64_mpimpich
+      linux_64_amrex_precisionspmpimpich:
+        CONFIG: linux_64_amrex_precisionspmpimpich
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_aarch64_mpinompi:
-        CONFIG: linux_aarch64_mpinompi
+      linux_64_amrex_precisionspmpinompi:
+        CONFIG: linux_64_amrex_precisionspmpinompi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_aarch64_mpiopenmpi:
-        CONFIG: linux_aarch64_mpiopenmpi
+      linux_64_amrex_precisionspmpiopenmpi:
+        CONFIG: linux_64_amrex_precisionspmpiopenmpi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_ppc64le_mpimpich:
-        CONFIG: linux_ppc64le_mpimpich
+      linux_aarch64_amrex_precisiondpmpimpich:
+        CONFIG: linux_aarch64_amrex_precisiondpmpimpich
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_ppc64le_mpinompi:
-        CONFIG: linux_ppc64le_mpinompi
+      linux_aarch64_amrex_precisiondpmpinompi:
+        CONFIG: linux_aarch64_amrex_precisiondpmpinompi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_ppc64le_mpiopenmpi:
-        CONFIG: linux_ppc64le_mpiopenmpi
+      linux_aarch64_amrex_precisiondpmpiopenmpi:
+        CONFIG: linux_aarch64_amrex_precisiondpmpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_aarch64_amrex_precisionspmpimpich:
+        CONFIG: linux_aarch64_amrex_precisionspmpimpich
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_aarch64_amrex_precisionspmpinompi:
+        CONFIG: linux_aarch64_amrex_precisionspmpinompi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_aarch64_amrex_precisionspmpiopenmpi:
+        CONFIG: linux_aarch64_amrex_precisionspmpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_ppc64le_amrex_precisiondpmpimpich:
+        CONFIG: linux_ppc64le_amrex_precisiondpmpimpich
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_ppc64le_amrex_precisiondpmpinompi:
+        CONFIG: linux_ppc64le_amrex_precisiondpmpinompi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_ppc64le_amrex_precisiondpmpiopenmpi:
+        CONFIG: linux_ppc64le_amrex_precisiondpmpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_ppc64le_amrex_precisionspmpimpich:
+        CONFIG: linux_ppc64le_amrex_precisionspmpimpich
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_ppc64le_amrex_precisionspmpinompi:
+        CONFIG: linux_ppc64le_amrex_precisionspmpinompi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_ppc64le_amrex_precisionspmpiopenmpi:
+        CONFIG: linux_ppc64le_amrex_precisionspmpiopenmpi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
   timeoutInMinutes: 360
