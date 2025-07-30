@@ -1,5 +1,11 @@
 @echo on
 
+if "%amrex_precision%" == "dp" (
+    set "PRECISION=DOUBLE"
+) else (
+    set "PRECISION=SINGLE"
+)
+
 :: configure
 cmake ^
     -S %SRC_DIR% -B build           ^
@@ -23,7 +29,9 @@ cmake ^
     -DAMReX_MPI_THREAD_MULTIPLE=OFF ^
     -DAMReX_OMP=ON                  ^
     -DAMReX_PARTICLES=ON            ^
+    -DAMReX_PARTICLES_PRECISION="%PRECISION%" ^
     -DAMReX_PLOTFILE_TOOLS=OFF      ^
+    -DAMReX_PRECISION="%PRECISION%" ^
     -DAMReX_PROBINIT=OFF            ^
     -DAMReX_PIC=ON                  ^
     -DAMReX_SPACEDIM="1;2;3"        ^

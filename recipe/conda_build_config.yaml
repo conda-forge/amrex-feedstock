@@ -2,3 +2,7 @@ mpi:
   - nompi
   - mpich  # [unix]
   - openmpi  # [unix]
+
+amrex_precision:
+  - dp
+  - sp
