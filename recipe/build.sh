@@ -16,6 +16,12 @@ if [[ ${mpi} == "nompi" ]]; then
 else
     export USE_MPI=ON
 fi
+# Precision variants
+if [[ ${amrex_precision} == "dp" ]]; then
+    export PRECISION="DOUBLE"
+else
+    export PRECISION="SINGLE"
+fi
 #   see https://github.com/conda-forge/hdf5-feedstock/blob/master/recipe/mpiexec.sh
 if [[ "$mpi" == "mpich" ]]; then
     export HYDRA_LAUNCHER=fork
@@ -58,7 +64,9 @@ cmake \
     -DAMReX_MPI_THREAD_MULTIPLE=OFF   \
     -DAMReX_OMP=ON                    \
     -DAMReX_PARTICLES=ON              \
+    -DAMReX_PARTICLES_PRECISION=${PRECISION} \
     -DAMReX_PLOTFILE_TOOLS=OFF        \
+    -DAMReX_PRECISION=${PRECISION}    \
     -DAMReX_PROBINIT=OFF              \
     -DAMReX_PIC=ON                    \
     -DAMReX_SPACEDIM="1;2;3"          \
