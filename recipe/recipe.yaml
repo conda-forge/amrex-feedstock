@@ -5,7 +5,7 @@ context:
   # prioritize nompi variant via build number
   name: amrex
   version: "25.08"
-  build: 3
+  build: 4
   mpi: ${{ mpi or "nompi" }}  # is this still needed?
   mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" + mpi }}
 
@@ -16,6 +16,9 @@ package:
 source:
   url: https://github.com/AMReX-Codes/amrex/archive/refs/tags/${{ version }}.tar.gz
   sha256: 2f8c986d8b70facfd345d8c7029e19a015c5a9c4d5d44f99f760dfe49281fffa
+  patches:
+    # fix SIMD namespaces
+    - 4600.patch
 
 build:
   # add build string so packages can depend on
