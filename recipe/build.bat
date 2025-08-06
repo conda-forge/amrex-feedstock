@@ -34,6 +34,7 @@ cmake ^
     -DAMReX_PRECISION="%PRECISION%" ^
     -DAMReX_PROBINIT=OFF            ^
     -DAMReX_PIC=ON                  ^
+    -DAMReX_SIMD=ON                 ^
     -DAMReX_SPACEDIM="1;2;3"        ^
     -DAMReX_SENSEI=OFF              ^
     -DAMReX_TEST_TYPE=Small         ^
