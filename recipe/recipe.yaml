@@ -16,6 +16,9 @@ package:
 source:
   url: https://github.com/AMReX-Codes/amrex/archive/refs/tags/${{ version }}.tar.gz
   sha256: 2f8c986d8b70facfd345d8c7029e19a015c5a9c4d5d44f99f760dfe49281fffa
+  patches:
+    # fix SIMD namespaces
+    - 4600.patch
 
 build:
   # add build string so packages can depend on
