@@ -1,0 +1,89 @@
+From 1ce4e6292e92b4defdbf341cc7b28afb1f130414 Mon Sep 17 00:00:00 2001
+From: Axel Huebl <axel.huebl@plasma.ninja>
+Date: Wed, 13 Aug 2025 12:14:45 -0700
+Subject: [PATCH] SIMD: Portable Masks, C++20
+
+Ensure we can use any producing type's `simd_mask`, e.g., `double`,
+when setting (in)valid particles, by manipulating our `uint64` in
+`idcpu`. This currently requires a conversion/cast in C++.
+Make this conversion portable, so far it only worked on GCC/Linux.
+
+This helper needs C++20. Thus, build AMReX conditionally always with
+C++20 or newer when SIMD is requested (non-default). Eventually, we
+will require C++26 once this becomes standard, and C++29 will have
+even more updates.
+---
+ Src/Base/AMReX_SIMD.H          |  6 ++++++
+ Src/Particle/AMReX_Particle.H  | 10 ++++++----
+ Tools/CMake/AMReX_Config.cmake |  6 ++++++
+ 3 files changed, 18 insertions(+), 4 deletions(-)
+
+diff --git a/Src/Base/AMReX_SIMD.H b/Src/Base/AMReX_SIMD.H
+index a15b5d54bd..13676b1ba7 100644
+--- a/Src/Base/AMReX_SIMD.H
++++ b/Src/Base/AMReX_SIMD.H
+@@ -8,6 +8,9 @@
+ #ifdef AMREX_USE_SIMD
+ // TODO make SIMD provider configurable: VIR (C++17 TS2) or C++26 (later)
+ #   include <vir/simd.h>  // includes SIMD TS2 header <experimental/simd>
++#   if __cplusplus >= 202002L
++#       include <vir/simd_cvt.h>
++#   endif
+ #endif
+ 
+ #include <cstdint>
+@@ -21,6 +24,9 @@ namespace amrex::simd
+     namespace stdx {
+ #ifdef AMREX_USE_SIMD
+         using namespace vir::stdx;
++#   if __cplusplus >= 202002L
++        using vir::cvt;
++#   endif
+ #else
+         // fallback implementations for functions that are commonly used in portable code paths
+ 
+diff --git a/Src/Particle/AMReX_Particle.H b/Src/Particle/AMReX_Particle.H
+index 91c66c787b..e07e1de65b 100644
+--- a/Src/Particle/AMReX_Particle.H
++++ b/Src/Particle/AMReX_Particle.H
+@@ -106,8 +106,9 @@ namespace amrex {
+ #ifdef AMREX_USE_SIMD
+             // SIMD
+             static_assert(!std::is_same_v<T_SIMD, uint64_t>, "make_invalid: forgot template on wrapper?");
+-            // .__cvt() because of: https://github.com/VcDevel/std-simd/issues/41
+-            simd::stdx::where(mask.__cvt(), idcpu) &= ~(T_SIMD{1} << 63);
++            // cvt / .__cvt() because of: https://github.com/VcDevel/std-simd/issues/41#issuecomment-3185164952
++            // see also https://github.com/mattkretz/vir-simd/issues/45
++            simd::stdx::where(simd::stdx::cvt(mask), idcpu) &= ~(T_SIMD{1} << 63);
+ #else
+             AMREX_ALWAYS_ASSERT_WITH_MESSAGE(false, "make_invalid: AMReX_SIMD was not enabled!");
+ #endif
+@@ -132,8 +133,9 @@ namespace amrex {
+ #ifdef AMREX_USE_SIMD
+             // SIMD
+             static_assert(!std::is_same_v<T_SIMD, uint64_t>, "make_valid: forgot template on wrapper?");
+-            // .__cvt() because of: https://github.com/VcDevel/std-simd/issues/41
+-            simd::stdx::where(mask.__cvt(), idcpu) |= T_SIMD{1} << 63;
++            // cvt / .__cvt() because of: https://github.com/VcDevel/std-simd/issues/41#issuecomment-3185164952
++            // see also https://github.com/mattkretz/vir-simd/issues/45
++            simd::stdx::where(simd::stdx::cvt(mask), idcpu) |= T_SIMD{1} << 63;
+ #else
+             AMREX_ALWAYS_ASSERT_WITH_MESSAGE(false, "make_valid: AMReX_SIMD was not enabled!");
+ #endif
+diff --git a/Tools/CMake/AMReX_Config.cmake b/Tools/CMake/AMReX_Config.cmake
+index 1780b0a0d5..fbc5a28826 100644
+--- a/Tools/CMake/AMReX_Config.cmake
++++ b/Tools/CMake/AMReX_Config.cmake
+@@ -47,6 +47,12 @@ function (configure_amrex AMREX_TARGET)
+    # minimum: C++17
+    target_compile_features(${AMREX_TARGET} PUBLIC cxx_std_17)
+ 
++   # vir::cvt
++   # https://github.com/mattkretz/vir-simd/issues/45
++   if (AMReX_SIMD)
++       target_compile_features(${AMREX_TARGET} PUBLIC cxx_std_20)
++   endif()
++
+    if (AMReX_CUDA)
+       set_target_properties(${AMREX_TARGET} PROPERTIES CUDA_EXTENSIONS OFF)
+       # minimum: C++17

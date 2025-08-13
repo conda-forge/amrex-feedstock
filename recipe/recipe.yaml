@@ -5,7 +5,7 @@ context:
   # prioritize nompi variant via build number
   name: amrex
   version: "25.08"
-  build: 5
+  build: 6
   mpi: ${{ mpi or "nompi" }}  # is this still needed?
   mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" + mpi }}
 
@@ -19,6 +19,8 @@ source:
   patches:
     # fix SIMD namespaces
     - 4600.patch
+    # fix SIMD cvt for masks on macOS/Windows
+    - 4607.patch
 
 build:
   # add build string so packages can depend on
