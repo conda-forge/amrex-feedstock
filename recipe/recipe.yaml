@@ -16,11 +16,6 @@ package:
 source:
   url: https://github.com/AMReX-Codes/amrex/archive/refs/tags/${{ version }}.tar.gz
   sha256: 08f7dcda3daffba90c4cf90ad371557feb70ea6c0e4fa51ab716e24beec12c79
-  patches:
-    # fix SIMD namespaces
-    - 4600.patch
-    # fix SIMD cvt for masks on macOS/Windows
-    - 4607.patch
 
 build:
   # add build string so packages can depend on
