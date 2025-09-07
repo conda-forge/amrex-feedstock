@@ -387,10 +387,8 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@EZoni](https://github.com/EZoni/)
 * [@WeiqunZhang](https://github.com/WeiqunZhang/)
 * [@atmyers](https://github.com/atmyers/)
 * [@ax3l](https://github.com/ax3l/)
-
-
-<!-- dummy commit to enable rerendering -->
 
