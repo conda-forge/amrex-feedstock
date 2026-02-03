@@ -18,6 +18,7 @@ cmake ^
     -DAMReX_EB=ON                   ^
     -DAMReX_ENABLE_TESTS=ON         ^
     -DAMReX_FFT=ON                  ^
+    -DAMReX_FFTW_IGNORE_OMP=ON      ^
     -DAMReX_FORTRAN=OFF             ^
     -DAMReX_FORTRAN_INTERFACES=OFF  ^
     -DAMReX_GPU_BACKEND=NONE        ^
