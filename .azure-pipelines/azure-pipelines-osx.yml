@@ -5,45 +5,57 @@
 jobs:
 - job: osx
   pool:
-    vmImage: macOS-15
+    vmImage: $(VMIMAGE)
   strategy:
     matrix:
       osx_64_amrex_precisiondpmpimpich:
         CONFIG: osx_64_amrex_precisiondpmpimpich
         UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
       osx_64_amrex_precisiondpmpinompi:
         CONFIG: osx_64_amrex_precisiondpmpinompi
         UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
       osx_64_amrex_precisiondpmpiopenmpi:
         CONFIG: osx_64_amrex_precisiondpmpiopenmpi
         UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
       osx_64_amrex_precisionspmpimpich:
         CONFIG: osx_64_amrex_precisionspmpimpich
         UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
       osx_64_amrex_precisionspmpinompi:
         CONFIG: osx_64_amrex_precisionspmpinompi
         UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
       osx_64_amrex_precisionspmpiopenmpi:
         CONFIG: osx_64_amrex_precisionspmpiopenmpi
         UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
       osx_arm64_amrex_precisiondpmpimpich:
         CONFIG: osx_arm64_amrex_precisiondpmpimpich
         UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
       osx_arm64_amrex_precisiondpmpinompi:
         CONFIG: osx_arm64_amrex_precisiondpmpinompi
         UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
       osx_arm64_amrex_precisiondpmpiopenmpi:
         CONFIG: osx_arm64_amrex_precisiondpmpiopenmpi
         UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
       osx_arm64_amrex_precisionspmpimpich:
         CONFIG: osx_arm64_amrex_precisionspmpimpich
         UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
       osx_arm64_amrex_precisionspmpinompi:
         CONFIG: osx_arm64_amrex_precisionspmpinompi
         UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
       osx_arm64_amrex_precisionspmpiopenmpi:
         CONFIG: osx_arm64_amrex_precisionspmpiopenmpi
         UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
   timeoutInMinutes: 360
   variables: {}
 
