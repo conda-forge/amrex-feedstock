@@ -1,3 +1,10 @@
+bot:
+  automerge: false
+  check_solvable: true
+  version_updates:
+    exclude:
+    - v2024
+    - '2024'
 build_platform:
   linux_aarch64: linux_64
   linux_ppc64le: linux_64
@@ -15,11 +22,3 @@ provider:
   linux_ppc64le: azure
   win: azure
 test: native_and_emulated
-bot:
-  automerge: false
-  check_solvable: true
-  version_updates:
-    exclude:
-      # this was a one-off tag, AMReX releases use YY.MM schema
-      - "v2024"
-      - "2024"
