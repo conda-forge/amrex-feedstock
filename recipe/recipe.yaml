@@ -5,7 +5,7 @@ context:
   # prioritize nompi variant via build number
   name: amrex
   version: "26.04"
-  build: 0
+  build: 1
   mpi: ${{ mpi or "nompi" }}  # is this still needed?
   mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" + mpi }}
 
@@ -16,6 +16,8 @@ package:
 source:
   url: https://github.com/AMReX-Codes/amrex/archive/refs/tags/${{ version }}.tar.gz
   sha256: 6774449027793ae583036150ee17d929c88cdc04fee136da8de201cbe78c4c03
+  patches:
+    - patches/amrex-26.04-changelog.patch
 
 build:
   # add build string so packages can depend on
