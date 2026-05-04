@@ -11,9 +11,11 @@ jobs:
       win_64_amrex_precisiondp:
         CONFIG: win_64_amrex_precisiondp
         UPLOAD_PACKAGES: 'True'
+        store_build_artifacts: false
       win_64_amrex_precisionsp:
         CONFIG: win_64_amrex_precisionsp
         UPLOAD_PACKAGES: 'True'
+        store_build_artifacts: false
   timeoutInMinutes: 360
   variables:
     CONDA_BLD_PATH: D:\\bld\\
