@@ -16,8 +16,6 @@ package:
 source:
   url: https://github.com/AMReX-Codes/amrex/archive/refs/tags/${{ version }}.tar.gz
   sha256: 66415ed3f6f02af53ff2007424fc15a758165b92f4b556092e3e53e5582889a8
-  patches:
-    - patches/amrex-26.04-changelog.patch
 
 build:
   # add build string so packages can depend on
