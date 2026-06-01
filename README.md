@@ -21,7 +21,14 @@ Current build status
 ====================
 
 
-<table>
+<table><tr>
+    <td>GitHub Actions</td>
+    <td>
+      <a href="https://github.com/conda-forge/amrex-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/conda-forge/amrex-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+      </a>
+    </td>
+  </tr>
     
   <tr>
     <td>Azure</td>
@@ -35,90 +42,6 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_amrex_precisiondpmpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_amrex_precisiondpmpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_amrex_precisiondpmpinompi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_amrex_precisiondpmpinompi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_amrex_precisiondpmpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_amrex_precisiondpmpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_amrex_precisionspmpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_amrex_precisionspmpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_amrex_precisionspmpinompi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_amrex_precisionspmpinompi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_amrex_precisionspmpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_amrex_precisionspmpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_amrex_precisiondpmpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_amrex_precisiondpmpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_amrex_precisiondpmpinompi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_amrex_precisiondpmpinompi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_amrex_precisiondpmpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_amrex_precisiondpmpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_amrex_precisionspmpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_amrex_precisionspmpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_amrex_precisionspmpinompi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_amrex_precisionspmpinompi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_amrex_precisionspmpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_amrex_precisionspmpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>linux_ppc64le_amrex_precisiondpmpimpich</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
@@ -200,48 +123,6 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_amrex_precisionspmpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_amrex_precisiondpmpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_amrex_precisiondpmpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_amrex_precisiondpmpinompi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_amrex_precisiondpmpinompi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_amrex_precisiondpmpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_amrex_precisiondpmpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_amrex_precisionspmpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_amrex_precisionspmpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_amrex_precisionspmpinompi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_amrex_precisionspmpinompi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_amrex_precisionspmpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_amrex_precisionspmpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>

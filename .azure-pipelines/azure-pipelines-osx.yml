@@ -12,68 +12,94 @@ jobs:
         CONFIG: osx_64_amrex_precisiondpmpimpich
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
         store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
       osx_64_amrex_precisiondpmpinompi:
         CONFIG: osx_64_amrex_precisiondpmpinompi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
         store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
       osx_64_amrex_precisiondpmpiopenmpi:
         CONFIG: osx_64_amrex_precisiondpmpiopenmpi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
         store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
       osx_64_amrex_precisionspmpimpich:
         CONFIG: osx_64_amrex_precisionspmpimpich
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
         store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
       osx_64_amrex_precisionspmpinompi:
         CONFIG: osx_64_amrex_precisionspmpinompi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
         store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
       osx_64_amrex_precisionspmpiopenmpi:
         CONFIG: osx_64_amrex_precisionspmpiopenmpi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
         store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
       osx_arm64_amrex_precisiondpmpimpich:
         CONFIG: osx_arm64_amrex_precisiondpmpimpich
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
         store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
       osx_arm64_amrex_precisiondpmpinompi:
         CONFIG: osx_arm64_amrex_precisiondpmpinompi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
         store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
       osx_arm64_amrex_precisiondpmpiopenmpi:
         CONFIG: osx_arm64_amrex_precisiondpmpiopenmpi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
         store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
       osx_arm64_amrex_precisionspmpimpich:
         CONFIG: osx_arm64_amrex_precisionspmpimpich
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
         store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
       osx_arm64_amrex_precisionspmpinompi:
         CONFIG: osx_arm64_amrex_precisionspmpinompi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
         store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
       osx_arm64_amrex_precisionspmpiopenmpi:
         CONFIG: osx_arm64_amrex_precisionspmpiopenmpi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
         store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
   timeoutInMinutes: 360
   variables: {}
 
   steps:
   # TODO: Fast finish on azure pipelines?
   - script: |
+      export MINIFORGE_HOME=$(tools_install_dir)
+      export CONDA_BLD_PATH=$(build_workspace_dir)
       export CI=azure
       export flow_run_id=azure_$(Build.BuildNumber).$(System.JobAttempt)
       export remote_url=$(Build.Repository.Uri)
