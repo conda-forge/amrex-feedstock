@@ -6,3 +6,11 @@ mpi:
 amrex_precision:
   - dp
   - sp
+
+# Target the x86-64-v3 microarchitecture (AVX2 + FMA + BMI) on x86_64 instead of
+# the conda-forge -march=nocona default. On Unix this drives the
+# x86_64-microarch-level build dependency in recipe.yaml; Windows is handled via
+# /arch:AVX2 in build.bat.
+microarch_level:
+  - 0  # [not (unix and x86_64)]
+  - 3  # [unix and x86_64]

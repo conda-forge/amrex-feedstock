@@ -5,7 +5,7 @@ context:
   # prioritize nompi variant via build number
   name: amrex
   version: "26.06"
-  build: 0
+  build: 1
   mpi: ${{ mpi or "nompi" }}  # is this still needed?
   mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" + mpi }}
 
@@ -31,6 +31,11 @@ requirements:
     - ${{ compiler('c') }}
     - ${{ stdlib("c") }}
     - ${{ compiler('cxx') }}
+    # Target the x86-64-v3 microarchitecture on Unix x86_64 (linux-64/osx-64).
+    # Injects -march=x86-64-v3 and adds an __archspec run-export so the package
+    # only installs on v3-capable CPUs. Unix-only package; Windows handled in build.bat.
+    - if: "microarch_level | int > 0"
+      then: x86_64-microarch-level ==${{ microarch_level }}
     - if: unix
       then: make
     - if: win
