@@ -13,7 +13,7 @@ cxx_compiler:
 fftw:
 - '3'
 microarch_level:
-- '0'
+- '3'
 mpi:
 - nompi
 mpich:
