@@ -12,6 +12,8 @@ cxx_compiler:
 - vs2022
 fftw:
 - '3'
+microarch_level:
+- '0'
 mpi:
 - nompi
 mpich:
