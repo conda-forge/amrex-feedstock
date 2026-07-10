@@ -4,8 +4,8 @@ context:
   # ensure mpi is defined (needed for conda-smithy recipe-lint)
   # prioritize nompi variant via build number
   name: amrex
-  version: "26.06"
-  build: 1
+  version: "26.07"
+  build: 0
   mpi: ${{ mpi or "nompi" }}  # is this still needed?
   mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" + mpi }}
 
@@ -15,7 +15,7 @@ package:
 
 source:
   url: https://github.com/AMReX-Codes/amrex/archive/refs/tags/${{ version }}.tar.gz
-  sha256: 822e4d69777ababb2caafadefb88dbdd144111d056fe693a566c820ab0b9b8e6
+  sha256: bd0781de5c369928f1c2453f2a6e5b091ef4082d083c8f2cc5818271238d857e
 
 build:
   # add build string so packages can depend on
@@ -36,7 +36,7 @@ requirements:
     # only installs on v3-capable CPUs. This activation package is __unix-only;
     # Windows sets the flag in build.bat and adds the __archspec guard in run.
     - if: unix and x86_64
-      then: x86_64-microarch-level ==${{ microarch_level }}
+      then: x86_64-microarch-level ==${{ microarch_level | default(1) }}
     - if: unix
       then: make
     - if: win
@@ -73,7 +73,7 @@ requirements:
     # mirrors the run-export the Unix builds get and keeps the v3-built Windows
     # package from installing on pre-v3 CPUs. The -march flag is set in build.bat.
     - if: win
-      then: _x86_64-microarch-level >=${{ microarch_level }}
+      then: _x86_64-microarch-level >=${{ microarch_level | default(1) }}
   run_exports:
     # strict runtime dependency on build-time MPI flavor and DP/SP variant
     - ${{ name }} * ${{ mpi_prefix }}_${{ amrex_precision }}_*
