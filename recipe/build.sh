@@ -42,42 +42,51 @@ if [[ "$mpi" == "openmpi" &&
     export OPAL_PREFIX=${PREFIX}
 fi
 
+CMAKE_CUDA_ARGS=()
+if [[ "${cuda_compiler_version}" == "None" ]]; then
+    export GPU_BACKEND=NONE
+else
+    export GPU_BACKEND=CUDA
+    CMAKE_CUDA_ARGS+=("-DCMAKE_CUDA_ARCHITECTURES=all-major")
+fi
+
 # configure
 cmake \
-    -S ${SRC_DIR} -B build            \
-    ${CMAKE_ARGS}                     \
-    -DAMReX_ASCENT=OFF                \
-    -DAMReX_BUILD_TUTORIALS=OFF       \
-    -DAMReX_CONDUIT=OFF               \
-    -DAMReX_CUDA_LTO=OFF              \
-    -DAMReX_EB=ON                     \
-    -DAMReX_ENABLE_TESTS=ON           \
-    -DAMReX_FFT=ON                    \
-    -DAMReX_FORTRAN=OFF               \
-    -DAMReX_FORTRAN_INTERFACES=OFF    \
-    -DAMReX_GPU_BACKEND=NONE          \
-    -DAMReX_GPU_RDC=OFF               \
-    -DAMReX_HDF5=OFF                  \
-    -DAMReX_HYPRE=OFF                 \
-    -DAMReX_IPO=OFF                   \
-    -DAMReX_MPI=${USE_MPI}            \
-    -DAMReX_MPI_THREAD_MULTIPLE=OFF   \
-    -DAMReX_OMP=ON                    \
-    -DAMReX_PARTICLES=ON              \
+    -S ${SRC_DIR} -B build                   \
+    ${CMAKE_ARGS}                            \
+    -DAMReX_ASCENT=OFF                       \
+    -DAMReX_BUILD_TUTORIALS=OFF              \
+    -DAMReX_CONDUIT=OFF                      \
+    -DAMReX_CUDA_LTO=OFF                     \
+    -DAMReX_EB=ON                            \
+    -DAMReX_ENABLE_TESTS=ON                  \
+    -DAMReX_FFT=ON                           \
+    -DAMReX_FORTRAN=OFF                      \
+    -DAMReX_FORTRAN_INTERFACES=OFF           \
+    "${CMAKE_CUDA_ARGS[@]}"                  \
+    -DAMReX_GPU_BACKEND=${GPU_BACKEND}       \
+    -DAMReX_GPU_RDC=OFF                      \
+    -DAMReX_HDF5=OFF                         \
+    -DAMReX_HYPRE=OFF                        \
+    -DAMReX_IPO=OFF                          \
+    -DAMReX_MPI=${USE_MPI}                   \
+    -DAMReX_MPI_THREAD_MULTIPLE=OFF          \
+    -DAMReX_OMP=ON                           \
+    -DAMReX_PARTICLES=ON                     \
     -DAMReX_PARTICLES_PRECISION=${PRECISION} \
-    -DAMReX_PLOTFILE_TOOLS=OFF        \
-    -DAMReX_PRECISION=${PRECISION}    \
-    -DAMReX_PROBINIT=OFF              \
-    -DAMReX_PIC=ON                    \
-    -DAMReX_SIMD=ON                   \
-    -DAMReX_SPACEDIM="1;2;3"          \
-    -DAMReX_SENSEI=OFF                \
-    -DAMReX_TEST_TYPE=Small           \
-    -DAMReX_TINY_PROFILE=ON           \
-    -DBUILD_SHARED_LIBS=ON            \
-    -DCMAKE_BUILD_TYPE=Release        \
-    -DCMAKE_VERBOSE_MAKEFILE=ON       \
-    -DCMAKE_INSTALL_LIBDIR=lib        \
+    -DAMReX_PLOTFILE_TOOLS=OFF               \
+    -DAMReX_PRECISION=${PRECISION}           \
+    -DAMReX_PROBINIT=OFF                     \
+    -DAMReX_PIC=ON                           \
+    -DAMReX_SIMD=ON                          \
+    -DAMReX_SPACEDIM="1;2;3"                 \
+    -DAMReX_SENSEI=OFF                       \
+    -DAMReX_TEST_TYPE=Small                  \
+    -DAMReX_TINY_PROFILE=ON                  \
+    -DBUILD_SHARED_LIBS=ON                   \
+    -DCMAKE_BUILD_TYPE=Release               \
+    -DCMAKE_VERBOSE_MAKEFILE=ON              \
+    -DCMAKE_INSTALL_LIBDIR=lib               \
     -DCMAKE_INSTALL_PREFIX=${PREFIX}
 
 # build
