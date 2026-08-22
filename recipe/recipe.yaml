@@ -67,6 +67,7 @@ requirements:
       then: ${{ mpi }}
     - if: "cuda_compiler_version != 'None'"
       then:
+        - cuda-libraries-dev
         - cuda-version ==${{ cuda_compiler_version }}
     - fftw
     - vir-simd
@@ -76,6 +77,7 @@ requirements:
         - ${{ mpi }}
     - if: "cuda_compiler_version != 'None'"
       then:
+        - cuda-cudart
         - cuda-version ==${{ cuda_compiler_version }}
     - if: osx
       then: libcxx
