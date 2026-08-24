@@ -69,6 +69,7 @@ requirements:
     - if: "cuda_compiler_version != 'None'"
       then:
         - cuda-libraries-dev
+        - cuda-nvtx-dev
         - cuda-version ==${{ cuda_compiler_version }}
     - fftw
     - vir-simd
