@@ -19,6 +19,7 @@ source:
   sha256: a86490c7cfa3d12b7e632ee08f613326b9a37c844b3a57772970bc328cf87f66
 
 build:
+  skip: ${{ target_platform != "linux-64" or cuda_compiler_version != "12.9" }}
   # add build string so packages can depend on
   # mpi or nompi variants
   # dependencies:
