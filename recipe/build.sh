@@ -48,7 +48,7 @@ if [[ "${cuda_compiler_version}" == "None" ]]; then
     SIMD=ON
 else
     export GPU_BACKEND=CUDA
-    CMAKE_CUDA_ARGS+=("-DCMAKE_CUDA_ARCHITECTURES=all-major")
+    CMAKE_CUDA_ARGS+=("-DCMAKE_CUDA_ARCHITECTURES=70")
     SIMD=OFF
 fi
 
