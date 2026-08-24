@@ -45,9 +45,11 @@ fi
 CMAKE_CUDA_ARGS=()
 if [[ "${cuda_compiler_version}" == "None" ]]; then
     export GPU_BACKEND=NONE
+    SIMD=ON
 else
     export GPU_BACKEND=CUDA
     CMAKE_CUDA_ARGS+=("-DCMAKE_CUDA_ARCHITECTURES=all-major")
+    SIMD=OFF
 fi
 
 # configure
@@ -78,7 +80,7 @@ cmake \
     -DAMReX_PRECISION=${PRECISION}           \
     -DAMReX_PROBINIT=OFF                     \
     -DAMReX_PIC=ON                           \
-    -DAMReX_SIMD=ON                          \
+    -DAMReX_SIMD=${SIMD}                     \
     -DAMReX_SPACEDIM="1;2;3"                 \
     -DAMReX_SENSEI=OFF                       \
     -DAMReX_TEST_TYPE=Small                  \
