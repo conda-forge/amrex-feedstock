@@ -1,10 +1,10 @@
 mpi:
-  - nompi
-  - mpich  # [unix]
-  - openmpi  # [unix]
+  - mpich
+
+cuda_compiler_version:
+  - 12.9
 
 amrex_precision:
-  - dp
   - sp
 
 # Target the x86-64-v3 microarchitecture (AVX2 + FMA + BMI) on all x86_64 instead

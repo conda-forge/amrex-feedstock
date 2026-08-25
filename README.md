@@ -29,122 +29,6 @@ Current build status
       </a>
     </td>
   </tr>
-    
-  <tr>
-    <td>Azure</td>
-    <td>
-      <details>
-        <summary>
-          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main">
-          </a>
-        </summary>
-        <table>
-          <thead><tr><th>Variant</th><th>Status</th></tr></thead>
-          <tbody><tr>
-              <td>linux_ppc64le_amrex_precisiondpmpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_amrex_precisiondpmpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le_amrex_precisiondpmpinompi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_amrex_precisiondpmpinompi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le_amrex_precisiondpmpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_amrex_precisiondpmpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le_amrex_precisionspmpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_amrex_precisionspmpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le_amrex_precisionspmpinompi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_amrex_precisionspmpinompi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le_amrex_precisionspmpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_amrex_precisionspmpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_amrex_precisiondpmpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_amrex_precisiondpmpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_amrex_precisiondpmpinompi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_amrex_precisiondpmpinompi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_amrex_precisiondpmpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_amrex_precisiondpmpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_amrex_precisionspmpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_amrex_precisionspmpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_amrex_precisionspmpinompi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_amrex_precisionspmpinompi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_amrex_precisionspmpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_amrex_precisionspmpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_amrex_precisiondp</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=win&configuration=win%20win_64_amrex_precisiondp" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_amrex_precisionsp</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20581&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/amrex-feedstock?branchName=main&jobName=win&configuration=win%20win_64_amrex_precisionsp" alt="variant">
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </details>
-    </td>
-  </tr>
 </table>
 
 Current release info
@@ -164,31 +48,73 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `amrex` can be installed with `conda`:
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda install amrex
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba install amrex
 ```
 
-It is possible to list all of the versions of `amrex` available on your platform with `conda`:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+# for adding to your local project
+pixi add amrex
+# for installing globally
+pixi global install amrex
+```
+
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `amrex` available on your platform:
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda search amrex --channel conda-forge
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba search amrex --channel conda-forge
 ```
 
-Alternatively, `mamba repoquery` may provide more information:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search amrex --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
 
 ```
 # Search all versions available on your platform:
@@ -200,6 +126,8 @@ mamba repoquery whoneeds amrex --channel conda-forge
 # List dependencies of `amrex`:
 mamba repoquery depends amrex --channel conda-forge
 ```
+
+</details>
 
 
 About conda-forge
