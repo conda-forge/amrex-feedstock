@@ -71,7 +71,7 @@ jobs:
       osx_arm64_amrex_precisiondpmpimpich:
         CONFIG: osx_arm64_amrex_precisiondpmpimpich
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
@@ -81,7 +81,7 @@ jobs:
       osx_arm64_amrex_precisiondpmpinompi:
         CONFIG: osx_arm64_amrex_precisiondpmpinompi
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
@@ -91,7 +91,7 @@ jobs:
       osx_arm64_amrex_precisiondpmpiopenmpi:
         CONFIG: osx_arm64_amrex_precisiondpmpiopenmpi
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
@@ -101,7 +101,7 @@ jobs:
       osx_arm64_amrex_precisionspmpimpich:
         CONFIG: osx_arm64_amrex_precisionspmpimpich
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
@@ -111,7 +111,7 @@ jobs:
       osx_arm64_amrex_precisionspmpinompi:
         CONFIG: osx_arm64_amrex_precisionspmpinompi
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
@@ -121,7 +121,7 @@ jobs:
       osx_arm64_amrex_precisionspmpiopenmpi:
         CONFIG: osx_arm64_amrex_precisionspmpiopenmpi
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
