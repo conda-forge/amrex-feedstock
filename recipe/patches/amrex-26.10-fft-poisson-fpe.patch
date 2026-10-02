@@ -1,0 +1,20 @@
+--- a/Tests/FFT/Poisson/main.cpp
++++ b/Tests/FFT/Poisson/main.cpp
+@@ -326,16 +326,7 @@
+
+ int main (int argc, char* argv[])
+ {
+-    amrex::Initialize(argc, argv, true, MPI_COMM_WORLD, [] () {
+-        // Trap floating-point exceptions unless the command line says
+-        // otherwise. The singular cases (no Dirichlet boundary) must not
+-        // divide by the zero wavenumber, not even speculatively.
+-        ParmParse pp("amrex");
+-        int trap = 1;
+-        pp.queryAdd("fpe_trap_invalid", trap);
+-        trap = 1;
+-        pp.queryAdd("fpe_trap_zero", trap);
+-    });
++    amrex::Initialize(argc, argv);
+     {
+         BL_PROFILE("main");
+
