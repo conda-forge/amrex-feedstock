@@ -16,8 +16,6 @@ package:
 source:
   url: https://github.com/AMReX-Codes/amrex/archive/refs/tags/${{ version }}.tar.gz
   sha256: 2e6650b88e669252668cb367d689925ab58cac73b594f76d033fd2ef512537c7
-  patches:
-    - patches/amrex-26.10-fft-poisson-fpe.patch
 
 build:
   # add build string so packages can depend on
