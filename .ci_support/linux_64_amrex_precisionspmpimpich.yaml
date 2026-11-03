@@ -1,3 +1,5 @@
+DOCKER_PLATFORM:
+- linux/amd64
 amrex_precision:
 - sp
 c_compiler:
